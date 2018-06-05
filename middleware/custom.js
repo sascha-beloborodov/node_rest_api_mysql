@@ -1,6 +1,7 @@
-const Company 			    = require('./../models').Company;
+const Company = require('./../models').Company;
+const Quest = require('./../models').Quest;
 
-let company = async function (req, res, next) {
+const company = async (req, res, next) => {
     let company_id, err, company;
     company_id = req.params.company_id;
 
@@ -20,3 +21,23 @@ let company = async function (req, res, next) {
     next();
 }
 module.exports.company = company;
+
+const quest = async (req, res, next) => {
+    let questId, err, quest, user;
+    questId = req.params.questId;
+
+    [err, quest] = await to(Quest.findOne({ where: { id: questId } }));
+    if (err) {
+        return ReE(res, "Can't find quest");
+    }
+    if (!quest) {
+        return ReE(res, "Quest not found with id: " + questId);
+    } 
+    user = req.user;
+    if (user.id !== quest.ownerId) {
+        return ReE(res, "Quest not found with id: " + questId);
+    }
+    req.quest = quest;
+    next();
+}
+module.exports.quest = quest;

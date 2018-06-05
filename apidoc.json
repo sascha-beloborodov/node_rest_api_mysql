@@ -1,0 +1,7 @@
+{
+  "name": "Stiqet API",
+  "version": "0.0.1",
+  "description": "REST API for Stiqet api",
+  "title": "Stiqet",
+  "url" : "https://your.domain/v1"
+}
